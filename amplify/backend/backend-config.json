@@ -24,5 +24,11 @@
         }
       }
     }
+  },
+  "storage": {
+    "SeleneAmplify": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation"
+    }
   }
 }
