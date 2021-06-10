@@ -1,3 +1,4 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './App.css';
@@ -9,10 +10,12 @@ import {
 import {
     css
 } from '@emotion/css';
+import { Auth } from 'aws-amplify';
+import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
 import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
 import { listNotes } from './graphql/queries';
 import { createNote as createNoteMutation, deleteNote as deleteNoteMutation } from './graphql/mutations';
-import { API, Storage, Auth } from 'aws-amplify';
+import { API, Storage } from 'aws-amplify';
 
 import Profile from './pages/Profile/Profile';
 import Home from './pages/Home/Home';
@@ -67,28 +70,27 @@ function App() {
         setNotes(newNotesArray);
         await API.graphql({ query: deleteNoteMutation, variables: { input: { id } } });
     }
+    async function signout() {
 
+        await Auth.signOut({ global: true });
+        window.location.reload();
+    }
     return (
 
         <div className="App">
             <Router>
                 <div>
-                    <nav>
-                        <ul>
-                            <li>
-                                <Link to="/myalbum">My Album</Link>
-                            </li>
-                            <li>
-                                <Link to="/social-gallery">Social Gallery</Link>
-                            </li>
-                            <li>
-                                <Link to="/setting">User Setting</Link>
-                            </li>
-                            <li>
-                                <Link to="/">Home</Link>
-                            </li>
-                        </ul>
-                    </nav>
+                    <>
+                        <Navbar className="nav-bar" variant="dark">
+                            <Navbar.Brand href="/">Neuralink</Navbar.Brand>
+                            <Nav className="mr-auto">
+                                <Nav.Link href="myalbum">My Album</Nav.Link>
+                                <Nav.Link href="social-gallery">Social Gallery</Nav.Link>
+                                <Nav.Link href="setting">User Setting</Nav.Link>
+                                <Nav.Link onClick={signout} >Sign Out</Nav.Link>
+                            </Nav>
+                        </Navbar>
+                    </>
 
                     {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
@@ -119,12 +121,5 @@ function App() {
     );
 }
 
-const dividerStyle = css`
-    margin-top: 15px;
-`
-const contentStyle = css`
-    min-height: calc(100vh - 45px);
-    padding: 0px 40px;
-`
 
 export default withAuthenticator(App);

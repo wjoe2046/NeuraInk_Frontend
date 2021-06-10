@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Auth } from 'aws-amplify';
-import { AmplifySignOut } from '@aws-amplify/ui-react';
 
 export default function Profile() 
 {
