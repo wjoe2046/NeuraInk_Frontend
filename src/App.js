@@ -84,9 +84,9 @@ function App() {
                         <Navbar className="nav-bar" variant="dark">
                             <Navbar.Brand href="/">Neuralink</Navbar.Brand>
                             <Nav className="mr-auto">
-                                <Nav.Link href="myalbum">My Album</Nav.Link>
-                                <Nav.Link href="social-gallery">Social Gallery</Nav.Link>
-                                <Nav.Link href="setting">User Setting</Nav.Link>
+                                <Nav.Link href="myalbum">Album</Nav.Link>
+                                <Nav.Link href="social-gallery">Gallery</Nav.Link>
+                                <Nav.Link href="setting">Setting</Nav.Link>
                                 <Nav.Link onClick={signout} >Sign Out</Nav.Link>
                             </Nav>
                         </Navbar>
