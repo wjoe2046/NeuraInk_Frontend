@@ -82,7 +82,7 @@ function App() {
                 <div>
                     <>
                         <Navbar className="nav-bar" variant="dark">
-                            <Navbar.Brand href="/">Neuralink</Navbar.Brand>
+                            <Navbar.Brand href="/">NeuraInk</Navbar.Brand>
                             <Nav className="mr-auto">
                                 <Nav.Link href="myalbum">Album</Nav.Link>
                                 <Nav.Link href="social-gallery">Gallery</Nav.Link>
