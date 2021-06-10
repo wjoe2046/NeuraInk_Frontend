@@ -1,22 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import './Home.css';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route
-} from "react-router-dom"
 import {
   css
 } from '@emotion/css';
 import { withAuthenticator, AmplifySignOut, AmplifySignIn, AmplifyAuthenticator } from '@aws-amplify/ui-react';
-import { listNotes } from '../graphql/queries';
-import { createNote as createNoteMutation, deleteNote as deleteNoteMutation } from '../graphql/mutations';
+import { listNotes } from '../../graphql/queries';
+import { createNote as createNoteMutation, deleteNote as deleteNoteMutation } from '../../graphql/mutations';
 import { API, Storage, Auth } from 'aws-amplify';
 
-import Profile from '../pages/Profile';
-import Button from '../components/Button';
-import Header from '../components/Button';
+import Button from '../../components/Button/Button';
 
 const initialFormState = { name: '', description: '' }
 
