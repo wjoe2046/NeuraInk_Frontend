@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import './App.css';
 import {
     BrowserRouter as Router,
@@ -87,7 +87,7 @@ function App() {
                                 <Nav.Link href="myalbum">Album</Nav.Link>
                                 <Nav.Link href="social-gallery">Gallery</Nav.Link>
                                 <Nav.Link href="setting">Setting</Nav.Link>
-                                <Nav.Link onClick={signout} >Sign Out</Nav.Link>
+                                <Nav.Link onClick={()=>{signout()}} >Sign Out</Nav.Link>
                             </Nav>
                         </Navbar>
                     </>
