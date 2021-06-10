@@ -36,3 +36,26 @@
     transform: rotate(360deg);
   }
 }
+
+
+
+:root {
+  --amplify-primary-color: #002054;
+  --amplify-primary-tint: #002054;
+  --amplify-primary-shade: #002054;
+}
+
+
+amplify-authenticator {
+      --amplify-primary-color: #002054;
+      --amplify-primary-tint: #002054;
+      --amplify-primary-shade: #002054;
+      display: flex;
+      justifyContent: center;
+      alignItems: center;
+      flex: 1;
+      height: 100vh;
+      background-image: url("./bg.jpg");
+      background-color: #828a87!important;
+      --background-color: #828a87!important;
+  }
