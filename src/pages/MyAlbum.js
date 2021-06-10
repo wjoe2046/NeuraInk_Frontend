@@ -52,7 +52,7 @@ export default class MyAlbum extends React.Component {
   render() {
     return (
       <div className="gallery-container">
-        <h2>🔥 {this.state.user.username}'s album 🔥</h2>
+        <text className="gallery-title">{this.state.user.username}'s album</text>
         <div className="gallery-grid">
           {imgUrls.map(this.renderImageContent)}
         </div>

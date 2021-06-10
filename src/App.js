@@ -20,10 +20,6 @@ import MyAlbum from './pages/MyAlbum';
 import SocialGallery from './pages/SocialGallery';
 import Setting from './pages/Setting';
 
-import Button from './components/Button';
-import Header from './components/Button';
-import Post from './components/Button';
-
 const initialFormState = { name: '', description: '' }
 
 function App() {
