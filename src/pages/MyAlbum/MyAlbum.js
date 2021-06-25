@@ -22,6 +22,7 @@ export default class MyAlbum extends React.Component {
     ) 
   }
   openModal(e, index) {
+    console.log(index)
     this.setState ({ currentIndex: index });
   }
   closeModal(e) {
