@@ -1,4 +1,5 @@
 import { API, Storage, Auth } from 'aws-amplify';
+import http from './http';
 
 export const createNote = /* GraphQL */ `
   mutation CreateNote(
@@ -41,7 +42,11 @@ export async function listGallery(data: any) {
     return apiData.data.listGalleries.items
 }
 
-export async function addImage(formData) {
+export async function addImage(formData: any) {
     
     await API.graphql({ query: createNote, variables: { input: formData } });
+}
+
+export async function backend(data: any) {
+  return await http.postForm('/app/post', data)
 }
