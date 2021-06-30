@@ -9,16 +9,21 @@ import { API, Storage, Auth } from 'aws-amplify';
 
 const initialFormState = { name: '', description: '' };
 
-function App() {
+const UploadTemp = () => {
   const [notes, setNotes] = useState([]);
   const [formData, setFormData] = useState(initialFormState);
 
   async function onChange(e) {
+    let randomstring = require('randomstring');
+    let word = randomstring.generate(5);
+
     if (!e.target.files[0]) return;
+
     const file = e.target.files[0];
-    setFormData({ ...formData, image: file.name });
+    setFormData({ ...formData, image: file.name, name: word });
     await Storage.put(file.name, file);
     fetchNotes();
+    console.log(formData.name);
   }
 
   useEffect(() => {
@@ -41,7 +46,9 @@ function App() {
   }
 
   async function createNote() {
-    if (!formData.name || !formData.description) return;
+    if (!formData.image || !formData.name) return;
+    console.log(formData.name);
+
     await API.graphql({
       query: createNoteMutation,
       variables: { input: formData },
@@ -66,25 +73,13 @@ function App() {
   return (
     <div className='App'>
       <h1>Hello</h1>
-      <input
-        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-        placeholder='Note name'
-        value={formData.name}
-      />
-      <input
-        onChange={(e) =>
-          setFormData({ ...formData, description: e.target.value })
-        }
-        placeholder='Note description'
-        value={formData.description}
-      />
       <input type='file' onChange={onChange} />
       <button onClick={createNote}>Create Note</button>
       <div style={{ marginBottom: 30 }}>
+        {console.log(notes)}
         {notes.map((note) => (
           <div key={note.id || note.name}>
             <h2>{note.name}</h2>
-            <p>{note.description}</p>
             <button onClick={() => deleteNote(note)}>Delete note</button>
             {note.image && <img src={note.image} style={{ width: 400 }} />}
           </div>
@@ -92,7 +87,7 @@ function App() {
       </div>
     </div>
   );
-}
+};
 
 const dividerStyle = css`
   margin-top: 15px;
@@ -102,4 +97,4 @@ const contentStyle = css`
   padding: 0px 40px;
 `;
 
-export default App;
+export default UploadTemp;
