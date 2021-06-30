@@ -37,6 +37,7 @@ function App() {
         return note;
       })
     );
+    console.log(apiData.data);
     setNotes(apiData.data.listNotes.items);
   }
 

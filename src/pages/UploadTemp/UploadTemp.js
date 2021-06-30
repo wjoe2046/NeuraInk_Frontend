@@ -6,6 +6,8 @@ import {
   deleteNote as deleteNoteMutation,
 } from '../../graphql/mutations';
 import { API, Storage, Auth } from 'aws-amplify';
+import 'react-dropzone-uploader/dist/styles.css';
+import Dropzone from 'react-dropzone-uploader';
 
 const initialFormState = { name: '', description: '' };
 
@@ -13,18 +15,62 @@ const UploadTemp = () => {
   const [notes, setNotes] = useState([]);
   const [formData, setFormData] = useState(initialFormState);
 
-  async function onChange(e) {
-    let randomstring = require('randomstring');
-    let word = randomstring.generate(5);
+  let randomstring = require('randomstring');
+  let word = randomstring.generate(5);
 
-    if (!e.target.files[0]) return;
+  const toast = (innerHTML) => {
+    const el = document.getElementById('toast');
+    el.innerHTML = innerHTML;
+    el.className = 'show';
+    setTimeout(() => {
+      el.className = el.className.replace('show', '');
+    }, 3000);
+  };
 
-    const file = e.target.files[0];
-    setFormData({ ...formData, image: file.name, name: word });
-    await Storage.put(file.name, file);
+  const getUploadParams = async ({ file }) => {
+    if (!file) return;
+    // setFormData({ ...formData, image: file.name, name: word });
+    await Promise.all([
+      Storage.put(file.name, file),
+      createNote(),
+      fetchNotes(),
+    ]);
     fetchNotes();
-    console.log(formData.name);
-  }
+    return { url: 'https://httpbin.org/post' };
+  };
+
+  const handleChangeStatus = async ({ file, meta, remove }, status) => {
+    if (!file) return;
+    setFormData({ ...formData, image: file.name, name: word });
+    fetchNotes();
+
+    if (status === 'headers_received') {
+      //   await fetchNotes();
+      fetchNotes();
+      toast(`${meta.name} uploaded!`);
+      remove();
+    } else if (status === 'aborted') {
+      toast(`${meta.name}, upload failed...`);
+    }
+  };
+
+  const dropZone = () => (
+    <React.Fragment>
+      <div id='toast'>Upload</div>
+      <Dropzone
+        getUploadParams={getUploadParams}
+        onChangeStatus={handleChangeStatus}
+        maxFiles={1}
+        multiple={false}
+        canCancel={false}
+        inputContent='Drop A File'
+        styles={{
+          dropzone: { width: 400, height: 200 },
+          dropzoneActive: { borderColor: 'green' },
+        }}
+      />
+    </React.Fragment>
+  );
 
   useEffect(() => {
     fetchNotes();
@@ -42,22 +88,26 @@ const UploadTemp = () => {
         return note;
       })
     );
+    console.log(apiData.data);
     setNotes(apiData.data.listNotes.items);
   }
 
   async function createNote() {
-    if (!formData.image || !formData.name) return;
-    console.log(formData.name);
+    console.log('in create note');
 
+    if (!formData.image) return;
     await API.graphql({
       query: createNoteMutation,
       variables: { input: formData },
     });
+
     if (formData.image) {
       const image = await Storage.get(formData.image);
       formData.image = image;
     }
+
     setNotes([...notes, formData]);
+    console.log('set notes');
     setFormData(initialFormState);
   }
 
@@ -72,11 +122,12 @@ const UploadTemp = () => {
 
   return (
     <div className='App'>
+      <div>{dropZone()}</div>
       <h1>Hello</h1>
-      <input type='file' onChange={onChange} />
-      <button onClick={createNote}>Create Note</button>
+      {/* <input type='file' onChange={onChange} />
+      <button onClick={createNote}>Create Note</button> */}
       <div style={{ marginBottom: 30 }}>
-        {console.log(notes)}
+        {/* {console.log(notes)} */}
         {notes.map((note) => (
           <div key={note.id || note.name}>
             <h2>{note.name}</h2>
