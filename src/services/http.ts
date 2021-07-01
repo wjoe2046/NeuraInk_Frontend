@@ -5,17 +5,12 @@ class Http {
 
     static baseUrl = ''
 
-    async request(url: string, config: any, loadingTip?:string, baseUrl?:string) {
+    async request(url: string, config: Object, loadingTip?:string, baseUrl?:string) {
         config = Object.assign({
             headers: {}
         }, config);
 
-        let token = await AsyncStorage.getItem('AuthToken');
-        if (token) {
-            config.headers.authorization = token;
-        }
-        let search, pathname;
-        [pathname, search] = url.split('?');
+
         url = (baseUrl?baseUrl:Http.baseUrl) + url;
         const response = await fetch(url, config).catch(err => console.warn(err));
         var res = await this.parseResult(response, baseUrl?.includes("3.92.49.14"));
@@ -30,10 +25,8 @@ class Http {
             }, time * 1000)
         })
     }
-    async parseResult(response: any, print=false) {//解析返回的结果
-        // if (print){
-        //     console.log(response.status)
-        // }
+    async parseResult(response: any, print=false) {
+        
         
         if (response?.status != 200) return this.handleError();
         
@@ -52,7 +45,7 @@ class Http {
     }
     handleError(errRes?: any) {
         let errorNo = errRes?.errorNo || 500;
-        let errorDesc = errRes?.errorDesc || errRes?.message || '系统繁忙';
+        let errorDesc = errRes?.errorDesc || errRes?.message || 'System is busy';
         
         console.error(errorDesc);
         

@@ -50,3 +50,11 @@ export async function addImage(formData: any) {
 export async function backend(data: any) {
   return await http.postForm('/app/post', data)
 }
+
+export async function getImage(data: any) {
+  return await http.get('/app/image', {
+    "name": "monkey",
+    "size": "big"
+  })
+}
+
