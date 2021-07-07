@@ -7,7 +7,7 @@ export async function convertPic(data: any) {
   //   "file_name": "IMG_3667.JPG",
   //   "bucket_name": "amplify-amplifyeea5c332afdb4-staging-14031-deployment"
   // }
-  return await http.post('/process', data)
+  return await http.post('/process', data, "Processing data", "http://ec2-52-4-169-224.compute-1.amazonaws.com:8000")
 
   // example result
   // {

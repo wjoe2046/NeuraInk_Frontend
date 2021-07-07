@@ -57,17 +57,13 @@ class Http {
         }
         return this.request(url, {}, undefined, baseUrl);
     }
-    post(url: string, file_path: string, file_name: string, bucket_name: string, loadingTip?: string, baseUrl?:string) {
+    post(url: string, data?: object, loadingTip?: string, baseUrl?:string) {
         return this.request(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: {
-                "file_path": file_path,
-                "file_name": file_name,
-                "bucket_name": bucket_name
-            },
+            body: data ? qs.stringify(data) : null
         }, loadingTip, baseUrl)
     }
     postForm(url: string, data?: object, loadingTip?: string, baseUrl?:string) {
