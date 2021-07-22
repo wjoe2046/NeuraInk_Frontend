@@ -23,7 +23,7 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplifyeea5c332afdb4-staging-14031-deployment/amplify-cfn-templates/auth/amplifyapp2da4b441-cloudformation-template.yml",
         "logicalId": "authamplifyapp2da4b441"
       },
-      "lastPushTimeStamp": "2021-06-01T02:27:48.026Z",
+      "lastPushTimeStamp": "2021-07-22T04:06:07.472Z",
       "output": {
         "UserPoolId": "us-east-1_zsRt0pkwe",
         "AppClientIDWeb": "70t4eu3s0ctbj953jadc1skji9",
@@ -59,7 +59,7 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplifyeea5c332afdb4-staging-14031-deployment/amplify-cfn-templates/api/cloudformation-template.json",
         "logicalId": "apinotesapp"
       },
-      "lastPushTimeStamp": "2021-06-01T02:27:50.335Z",
+      "lastPushTimeStamp": "2021-07-22T04:06:07.474Z",
       "lastPushDirHash": "bHUeVCIYz2ZlunhtvayYhZxRvrA="
     }
   },
@@ -71,7 +71,7 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplifyeea5c332afdb4-staging-14031-deployment/amplify-cfn-templates/storage/s3-cloudformation-template.json",
         "logicalId": "storageSeleneAmplify"
       },
-      "lastPushTimeStamp": "2021-06-01T02:27:50.335Z",
+      "lastPushTimeStamp": "2021-07-22T04:06:10.479Z",
       "output": {
         "BucketName": "selene-amplify14031-staging",
         "Region": "us-east-1"

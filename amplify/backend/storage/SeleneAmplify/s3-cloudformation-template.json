@@ -160,21 +160,6 @@
 		}
 	},
 	"Resources": {
-		"S3BucketPolicy": {
-			"Type" : "AWS::S3::BucketPolicy",
-			"Properties" : {
-				"Bucket" : {"Ref" : "selene-amplify14031-staging"},
-				"PolicyDocument": {
-				"Statement":[{
-					"Sid": "PublicReadGetObject",
-					"Effect": "Allow",
-					"Action": "s3:GetObject",
-					"Principal": "*",
-					"Resource": { "Fn::Join" : ["", ["arn:aws:s3:::", { "Ref" : "selene-amplify14031-staging" } , "/public/*" ]]}
-				}]
-				}
-			}
-		},
 		"S3Bucket": {
 			"Type": "AWS::S3::Bucket",
 		    
