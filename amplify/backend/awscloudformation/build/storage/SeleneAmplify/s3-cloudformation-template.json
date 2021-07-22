@@ -191,6 +191,36 @@
     }
   },
   "Resources": {
+    "S3BucketPolicy": {
+      "Type": "AWS::S3::BucketPolicy",
+      "Properties": {
+        "Bucket": {
+          "Ref": "selene-amplify"
+        },
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Sid": "PublidReadGetObject",
+              "Effect": "Allow",
+              "Action": "s3:GetObject",
+              "Principal": "*",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:aws:s3:::",
+                    {
+                      "Ref": "selene-amplify"
+                    },
+                    "/*"
+                  ]
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
     "S3Bucket": {
       "Type": "AWS::S3::Bucket",
       "DeletionPolicy": "Retain",

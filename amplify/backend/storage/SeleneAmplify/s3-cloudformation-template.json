@@ -163,14 +163,14 @@
 		"S3BucketPolicy": {
 			"Type" : "AWS::S3::BucketPolicy",
 			"Properties" : {
-				"Bucket" : {"Ref" : "selene-amplify"},
+				"Bucket" : {"Ref" : "S3Bucket"},
 				"PolicyDocument": {
 					"Statement":[{
 						"Sid": "PublidReadGetObject",
 						"Effect": "Allow",
 						"Action": "s3:GetObject",
 						"Principal": "*",
-						"Resource": { "Fn::Join" : ["", ["arn:aws:s3:::", { "Ref" : "selene-amplify" } , "/*" ]]}
+						"Resource": { "Fn::Join" : ["", ["arn:aws:s3:::", { "Ref" : "S3Bucket" } , "/*" ]]}
 					}]
 				}
 			}
