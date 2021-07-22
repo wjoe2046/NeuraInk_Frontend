@@ -91,6 +91,10 @@ const UploadTemp = () => {
     setNotes(apiData.data.listNotes.items);
   }
 
+  async function fetchTransformedImage(){
+    
+  }
+
   async function createNote() {
     if (!formData.image) return;
     await API.graphql({

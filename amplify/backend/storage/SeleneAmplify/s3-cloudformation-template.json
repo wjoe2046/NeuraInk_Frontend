@@ -160,6 +160,22 @@
 		}
 	},
 	"Resources": {
+		"S3BucketPolicy": {
+			"Type" : "AWS::S3::BucketPolicy",
+			"Properties" : {
+				"Bucket" : {"Ref" : "bucketName"},
+				"PolicyDocument": {
+				"Statement":[{
+					"Sid": "PublicReadGetObject",
+					"Effect": "Allow",
+					"Action": "s3:GetObject",
+					"Principal": "*",
+					"Resource": { "Fn::Join" : ["", ["arn:aws:s3:::", { "Ref" : "bucketName" } , "/public/*" ]]}
+				}]
+				}
+			}
+			}
+
 		"S3Bucket": {
 			"Type": "AWS::S3::Bucket",
 		    
