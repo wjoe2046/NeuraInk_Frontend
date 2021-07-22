@@ -31,7 +31,9 @@ const UploadTemp = () => {
     if (!file) return;
     // setFormData({ ...formData, image: file.name, name: word });
     await Promise.all([
-      Storage.put(file.name, file),
+      Storage.put(file.name, file, {
+        level: 'public'
+      }),
       createNote(),
       fetchNotes(),
     ]);
@@ -92,7 +94,7 @@ const UploadTemp = () => {
   }
 
   async function fetchTransformedImage(){
-    
+
   }
 
   async function createNote() {

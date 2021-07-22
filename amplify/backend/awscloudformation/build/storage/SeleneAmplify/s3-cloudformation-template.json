@@ -191,24 +191,6 @@
     }
   },
   "Resources": {
-    "S3BucketPolicy": {
-      "Type": "AWS::S3::BucketPolicy",
-      "Properties": {
-        "Bucket": {
-          "Ref": "selene-amplify14031-staging"
-        },
-        "PolicyDocument": {
-          "Statement": [
-            {
-              "Sid": "PublicReadGetObject",
-              "Effect": "Allow",
-              "Action": "s3:GetObject",
-              "Principal": "*"
-            }
-          ]
-        }
-      }
-    },
     "S3Bucket": {
       "Type": "AWS::S3::Bucket",
       "DeletionPolicy": "Retain",
