@@ -195,7 +195,7 @@
       "Type": "AWS::S3::BucketPolicy",
       "Properties": {
         "Bucket": {
-          "Ref": "selene-amplify"
+          "Ref": "S3Bucket"
         },
         "PolicyDocument": {
           "Statement": [
@@ -210,7 +210,7 @@
                   [
                     "arn:aws:s3:::",
                     {
-                      "Ref": "selene-amplify"
+                      "Ref": "S3Bucket"
                     },
                     "/*"
                   ]
