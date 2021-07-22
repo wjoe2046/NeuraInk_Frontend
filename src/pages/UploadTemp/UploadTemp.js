@@ -88,13 +88,10 @@ const UploadTemp = () => {
         return note;
       })
     );
-    console.log(apiData.data);
     setNotes(apiData.data.listNotes.items);
   }
 
   async function createNote() {
-    console.log('in create note');
-
     if (!formData.image) return;
     await API.graphql({
       query: createNoteMutation,
@@ -107,13 +104,15 @@ const UploadTemp = () => {
     }
 
     setNotes([...notes, formData]);
-    console.log('set notes');
     setFormData(initialFormState);
   }
 
   async function deleteNote({ id }) {
     const newNotesArray = notes.filter((note) => note.id !== id);
     setNotes(newNotesArray);
+    
+    await Storage.remove(formData.image);
+
     await API.graphql({
       query: deleteNoteMutation,
       variables: { input: { id } },
