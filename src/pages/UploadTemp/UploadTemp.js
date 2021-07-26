@@ -89,6 +89,7 @@ const UploadTemp = () => {
     await Promise.all(
       notesFromAPI.map(async (note) => {
         if (note.image) {
+          console.log('changes');
           // const s3PrefixedNameOutput = prefixOutput.concat(note.image);
           const s3PrefixedNameInput = prefixInput.concat(note.image);
           const image = await Storage.get(s3PrefixedNameInput);
