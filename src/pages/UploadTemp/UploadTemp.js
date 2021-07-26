@@ -13,7 +13,10 @@ const initialFormState = { name: '', description: '' };
 
 const UploadTemp = () => {
   const [notes, setNotes] = useState([]);
+  const [transformedImage, setTransformedImage] = useState([]);
   const [formData, setFormData] = useState(initialFormState);
+  const prefixInput = 'input/';
+  const prefixOutput = 'output/';
 
   let randomstring = require('randomstring');
   let word = randomstring.generate(5);
@@ -30,9 +33,11 @@ const UploadTemp = () => {
   const getUploadParams = async ({ file }) => {
     if (!file) return;
     // setFormData({ ...formData, image: file.name, name: word });
+    const prefix_name = prefixInput.concat(file.name);
+
     await Promise.all([
-      Storage.put(file.name, file, {
-        level: 'public'
+      Storage.put(prefix_name, file, {
+        level: 'public',
       }),
       createNote(),
       fetchNotes(),
@@ -47,7 +52,6 @@ const UploadTemp = () => {
     fetchNotes();
 
     if (status === 'headers_received') {
-      //   await fetchNotes();
       fetchNotes();
       toast(`${meta.name} uploaded!`);
       remove();
@@ -76,6 +80,7 @@ const UploadTemp = () => {
 
   useEffect(() => {
     fetchNotes();
+    fetchTransformedImage();
   }, []);
 
   async function fetchNotes() {
@@ -84,7 +89,9 @@ const UploadTemp = () => {
     await Promise.all(
       notesFromAPI.map(async (note) => {
         if (note.image) {
-          const image = await Storage.get(note.image);
+          // const s3PrefixedNameOutput = prefixOutput.concat(note.image);
+          const s3PrefixedNameInput = prefixInput.concat(note.image);
+          const image = await Storage.get(s3PrefixedNameInput);
           note.image = image;
         }
         return note;
@@ -93,8 +100,12 @@ const UploadTemp = () => {
     setNotes(apiData.data.listNotes.items);
   }
 
-  async function fetchTransformedImage(){
-
+  async function fetchTransformedImage() {
+    console.log('fetch trasnforemd image');
+    const dummy = 'output/output_input.jpeg';
+    const transformedImage = await Storage.get(dummy);
+    setTransformedImage(transformedImage);
+    console.log(transformedImage);
   }
 
   async function createNote() {
@@ -116,7 +127,7 @@ const UploadTemp = () => {
   async function deleteNote({ id }) {
     const newNotesArray = notes.filter((note) => note.id !== id);
     setNotes(newNotesArray);
-    
+
     await Storage.remove(formData.image);
 
     await API.graphql({
@@ -129,10 +140,7 @@ const UploadTemp = () => {
     <div className='App'>
       <div>{dropZone()}</div>
       <h1>Hello</h1>
-      {/* <input type='file' onChange={onChange} />
-      <button onClick={createNote}>Create Note</button> */}
       <div style={{ marginBottom: 30 }}>
-        {/* {console.log(notes)} */}
         {notes.map((note) => (
           <div key={note.id || note.name}>
             <h2>{note.name}</h2>
@@ -140,6 +148,9 @@ const UploadTemp = () => {
             {note.image && <img src={note.image} style={{ width: 400 }} />}
           </div>
         ))}
+      </div>
+      <div style={{ marginBottom: 30 }}>
+        <img src={transformedImage} style={{ width: 400 }} />
       </div>
     </div>
   );

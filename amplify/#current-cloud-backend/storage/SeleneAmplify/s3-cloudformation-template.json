@@ -170,7 +170,7 @@
 						"Effect": "Allow",
 						"Action": "s3:GetObject",
 						"Principal": "*",
-						"Resource": { "Fn::Join" : ["", ["arn:aws:s3:::", { "Ref" : "S3Bucket" } , "/*" ]]}
+						"Resource": { "Fn::Join" : ["", ["arn:aws:s3:::", { "Ref" : "S3Bucket" } , "/public/*" ]]}
 					}]
 				}
 			}
