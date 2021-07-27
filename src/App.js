@@ -29,9 +29,13 @@ const initialFormState = { name: '', description: '' };
 
 function App() {
   const [user, setUser] = useState([]);
-  useEffect(() => { Auth.currentAuthenticatedUser()
-                    .then(user => setUser(true))
-                    .catch(() => { setUser(false)}) }, []);
+  useEffect(() => {
+    Auth.currentAuthenticatedUser()
+      .then((user) => setUser(true))
+      .catch(() => {
+        setUser(false);
+      });
+  }, []);
 
   async function signout() {
     await Auth.signOut({ global: true });
@@ -50,26 +54,25 @@ function App() {
                 <Nav.Link href='myalbum'>Album</Nav.Link>
                 <Nav.Link href='social-gallery'>Gallery</Nav.Link>
                 <Nav.Link href='setting'>Setting</Nav.Link>
-                {user?<Nav.Link
+                {user ? (
+                  <Nav.Link
                     onClick={() => {
                       signout();
                     }}
                   >
                     Sign Out
-                  </Nav.Link>:<Nav.Link
-                    href='upload'
-                  >
-                    Log In
                   </Nav.Link>
-                }
+                ) : (
+                  <Nav.Link href='upload'>Log In</Nav.Link>
+                )}
               </Nav>
             </Navbar>
           </>
 
           <Switch>
-            <Route exact path='/'>
+            {/* <Route exact path='/'>
               <Redirect to='/upload' />
-            </Route>
+            </Route> */}
             <Route path='/upload'>
               <UploadTemp />
             </Route>
@@ -99,4 +102,4 @@ function App() {
   );
 }
 
-export default (App);
+export default App;
