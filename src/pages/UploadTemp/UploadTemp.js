@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { css } from '@emotion/css';
 import { listNotes } from '../../graphql/queries';
+import { withAuthenticator } from '@aws-amplify/ui-react';
 import {
   createNote as createNoteMutation,
   deleteNote as deleteNoteMutation,
@@ -153,4 +154,4 @@ const contentStyle = css`
   padding: 0px 40px;
 `;
 
-export default UploadTemp;
+export default withAuthenticator(UploadTemp);

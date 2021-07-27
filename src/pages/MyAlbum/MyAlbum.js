@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { Auth } from 'aws-amplify';
+import React from 'react';
 import './MyAlbum.scss';
+import { withAuthenticator } from '@aws-amplify/ui-react';
+import { Auth } from 'aws-amplify';
 
 const imgUrls = ['https://patch.com/img/cdn20/users/22965231/20190314/022839/styles/raw/public/processed_images/ny_credit_lukas_kloeppel-1552588036-4396.jpg','https://images.pexels.com/photos/1987301/pexels-photo-1987301.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500','https://source.unsplash.com/lVmR1YaBGG4/800x600','https://source.unsplash.com/5KvPQc1Uklk/800x600','https://source.unsplash.com/GtYFwFrFbMA/800x600','https://source.unsplash.com/Igct8iZucFI/800x600','https://source.unsplash.com/M01DfkOqz7I/800x600','https://source.unsplash.com/MoI_cHNcSK8/800x600','https://source.unsplash.com/M0WbGFRTXqU/800x600','https://source.unsplash.com/s48nn4NtlZ4/800x600','https://source.unsplash.com/E4944K_4SvI/800x600','https://source.unsplash.com/F5Dxy9i8bxc/800x600','https://source.unsplash.com/iPum7Ket2jo/800x600'
 ];
 
-export default class MyAlbum extends React.Component {
+class MyAlbum extends React.Component {
   constructor(props) {
     super(props);
     this.state = { currentIndex: null, user: {} };
@@ -110,3 +111,4 @@ class GalleryModal extends React.Component {
     )
   }
 }
+export default withAuthenticator(MyAlbum)

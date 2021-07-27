@@ -1,18 +1,9 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { css } from '@emotion/css';
 import { Auth } from 'aws-amplify';
-import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
-import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
-import { listNotes } from './graphql/queries';
-import {
-  createNote as createNoteMutation,
-  deleteNote as deleteNoteMutation,
-} from './graphql/mutations';
-import { API, Storage } from 'aws-amplify';
+import { Navbar, Nav } from 'react-bootstrap';
 
 import Profile from './pages/Profile/Profile';
 import Home from './pages/Home/Home';
@@ -20,62 +11,16 @@ import MyAlbum from './pages/MyAlbum/MyAlbum';
 import UploadTemp from './pages/UploadTemp/UploadTemp';
 import SocialGallery from './pages/SocialGallery/SocialGallery';
 import Setting from './pages/Setting/Setting';
+import Landing from './pages/LandingPage/LandingPage';
 
 const initialFormState = { name: '', description: '' };
 
 function App() {
-  const [notes, setNotes] = useState([]);
-  const [formData, setFormData] = useState(initialFormState);
+  const [user, setUser] = useState([]);
+  useEffect(() => { Auth.currentAuthenticatedUser()
+                    .then(user => setUser(true))
+                    .catch(() => { setUser(false)}) }, []);
 
-  async function onChange(e) {
-    if (!e.target.files[0]) return;
-    const file = e.target.files[0];
-    setFormData({ ...formData, image: file.name });
-    await Storage.put(file.name, file);
-    fetchNotes();
-  }
-
-  useEffect(() => {
-    fetchNotes();
-  }, []);
-
-  async function fetchNotes() {
-    const apiData = await API.graphql({ query: listNotes });
-    const notesFromAPI = apiData.data.listNotes.items;
-    await Promise.all(
-      notesFromAPI.map(async (note) => {
-        if (note.image) {
-          const image = await Storage.get(note.image);
-          note.image = image;
-        }
-        return note;
-      })
-    );
-    setNotes(apiData.data.listNotes.items);
-  }
-
-  async function createNote() {
-    if (!formData.name || !formData.description) return;
-    await API.graphql({
-      query: createNoteMutation,
-      variables: { input: formData },
-    });
-    if (formData.image) {
-      const image = await Storage.get(formData.image);
-      formData.image = image;
-    }
-    setNotes([...notes, formData]);
-    setFormData(initialFormState);
-  }
-
-  async function deleteNote({ id }) {
-    const newNotesArray = notes.filter((note) => note.id !== id);
-    setNotes(newNotesArray);
-    await API.graphql({
-      query: deleteNoteMutation,
-      variables: { input: { id } },
-    });
-  }
   async function signout() {
     await Auth.signOut({ global: true });
     window.location.reload();
@@ -92,13 +37,18 @@ function App() {
                 <Nav.Link href='myalbum'>Album</Nav.Link>
                 <Nav.Link href='social-gallery'>Gallery</Nav.Link>
                 <Nav.Link href='setting'>Setting</Nav.Link>
-                <Nav.Link
-                  onClick={() => {
-                    signout();
-                  }}
-                >
-                  Sign Out
-                </Nav.Link>
+                {user?<Nav.Link
+                    onClick={() => {
+                      signout();
+                    }}
+                  >
+                    Sign Out
+                  </Nav.Link>:<Nav.Link
+                    href='upload'
+                  >
+                    Log In
+                  </Nav.Link>
+                }
               </Nav>
             </Navbar>
           </>
@@ -121,6 +71,9 @@ function App() {
             </Route>
             <Route path='/users'>{/* <Users /> */}</Route>
             <Route path='/'>
+              <Landing />
+            </Route>
+            <Route path='/'>
               <Home />
             </Route>
           </Switch>
@@ -130,4 +83,4 @@ function App() {
   );
 }
 
-export default withAuthenticator(App);
+export default (App);

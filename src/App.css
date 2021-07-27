@@ -7,6 +7,17 @@
     pointer-events: none;
 }
 
+body {
+    font-size: medium;
+}
+.navbar-brand {
+    float: left;
+    height: 50px;
+    padding: 15px 15px;
+    font-size: 18px;
+    line-height: 20px;
+}
+
 @media (prefers-reduced-motion: no-preference) {
     .App-logo {
         animation: App-logo-spin infinite 20s linear;
@@ -17,7 +28,9 @@
     background-color: #002054;
     color: white;
 }
-
+.nav-link {
+    color: white!important;
+}
 .App-header {
     background-color: #282c34;
     min-height: 100vh;
@@ -58,6 +71,6 @@ amplify-authenticator {
     flex: 1;
     height: 100vh;
     background-image: url("./bg.jpg");
-    background-color: #828a87!important;
-    --background-color: #828a87!important;
+    background-color: #828a87;
+    --background-color: #828a87;
 }
