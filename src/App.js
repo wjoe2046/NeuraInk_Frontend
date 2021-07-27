@@ -1,10 +1,22 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState, useEffect } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from 'react-router-dom';
+import { css } from '@emotion/css';
 import { Auth } from 'aws-amplify';
-import { Navbar, Nav } from 'react-bootstrap';
-
+import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
+import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
+import { listNotes } from './graphql/queries';
+import {
+  createNote as createNoteMutation,
+  deleteNote as deleteNoteMutation,
+} from './graphql/mutations';
+import { API, Storage } from 'aws-amplify';
 import Profile from './pages/Profile/Profile';
 import Home from './pages/Home/Home';
 import MyAlbum from './pages/MyAlbum/MyAlbum';
@@ -25,6 +37,7 @@ function App() {
     await Auth.signOut({ global: true });
     window.location.reload();
   }
+
   return (
     <div className='App'>
       <Router>
@@ -33,7 +46,7 @@ function App() {
             <Navbar className='nav-bar' variant='dark'>
               <Navbar.Brand href='/'>NeuraInk</Navbar.Brand>
               <Nav className='mr-auto'>
-                <Nav.Link href='upload'>Upload</Nav.Link>
+                {/* <Nav.Link href='upload'>Upload</Nav.Link> */}
                 <Nav.Link href='myalbum'>Album</Nav.Link>
                 <Nav.Link href='social-gallery'>Gallery</Nav.Link>
                 <Nav.Link href='setting'>Setting</Nav.Link>
@@ -54,6 +67,9 @@ function App() {
           </>
 
           <Switch>
+            <Route exact path='/'>
+              <Redirect to='/upload' />
+            </Route>
             <Route path='/upload'>
               <UploadTemp />
             </Route>
