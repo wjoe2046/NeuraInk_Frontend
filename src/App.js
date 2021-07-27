@@ -1,6 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import './App.css';
 import {
   BrowserRouter as Router,
@@ -24,10 +23,16 @@ import MyAlbum from './pages/MyAlbum/MyAlbum';
 import UploadTemp from './pages/UploadTemp/UploadTemp';
 import SocialGallery from './pages/SocialGallery/SocialGallery';
 import Setting from './pages/Setting/Setting';
+import Landing from './pages/LandingPage/LandingPage';
 
 const initialFormState = { name: '', description: '' };
 
 function App() {
+  const [user, setUser] = useState([]);
+  useEffect(() => { Auth.currentAuthenticatedUser()
+                    .then(user => setUser(true))
+                    .catch(() => { setUser(false)}) }, []);
+
   async function signout() {
     await Auth.signOut({ global: true });
     window.location.reload();
@@ -45,13 +50,18 @@ function App() {
                 <Nav.Link href='myalbum'>Album</Nav.Link>
                 <Nav.Link href='social-gallery'>Gallery</Nav.Link>
                 <Nav.Link href='setting'>Setting</Nav.Link>
-                <Nav.Link
-                  onClick={() => {
-                    signout();
-                  }}
-                >
-                  Sign Out
-                </Nav.Link>
+                {user?<Nav.Link
+                    onClick={() => {
+                      signout();
+                    }}
+                  >
+                    Sign Out
+                  </Nav.Link>:<Nav.Link
+                    href='upload'
+                  >
+                    Log In
+                  </Nav.Link>
+                }
               </Nav>
             </Navbar>
           </>
@@ -77,6 +87,9 @@ function App() {
             </Route>
             <Route path='/users'>{/* <Users /> */}</Route>
             <Route path='/'>
+              <Landing />
+            </Route>
+            <Route path='/'>
               <Home />
             </Route>
           </Switch>
@@ -86,4 +99,4 @@ function App() {
   );
 }
 
-export default withAuthenticator(App);
+export default (App);

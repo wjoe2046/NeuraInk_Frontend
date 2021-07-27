@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { withAuthenticator } from '@aws-amplify/ui-react';
 import { Auth } from 'aws-amplify';
-import { AmplifySignOut } from '@aws-amplify/ui-react';
 
-export default function Profile() 
+function Profile() 
 {
     const [user, setUser] = useState(null)
     useEffect(() => { Auth.currentAuthenticatedUser().then(user => setUser(user)); }, []);
@@ -17,3 +17,5 @@ export default function Profile()
         </div>
            )
 }
+
+export default withAuthenticator(Profile)
