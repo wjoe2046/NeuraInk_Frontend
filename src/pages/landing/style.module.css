@@ -1,0 +1,73 @@
+/* Header */
+.headerMain {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+
+.headerImage {
+  width: 100%;
+  height: 100%;
+  background-image: url("assets/images/landing_page_header.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.headerLogo {
+  display: block;
+}
+
+.headerLogo::after {
+  content: "";
+  display: block;
+  width: 30px;
+  height: 4px;
+  background-color: #ffc107;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+/* Hoe it works section */
+.playerWrapper {
+  position: relative;
+  padding-top: 56.25%;
+}
+
+.reactPlayer {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* Teams Section */
+.teamMembersSection {
+  background-image: url("assets/images/team_section.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+.teamMemberAvatar {
+  width: 8rem;
+  height: 8rem;
+  background-color: red;
+  border-radius: 9999px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Contact us section */
+.contactUsSection {
+  position: relative;
+  z-index: 20;
+  color: "#fff";
+  background-image: url("assets/images/team_section.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  text-align: center;
+}
