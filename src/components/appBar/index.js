@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { CloudUploadIcon } from "@heroicons/react/solid";
 import { MailIcon, GlobeIcon, SearchIcon } from "@heroicons/react/outline";
 import { selectUser } from "components/auth/slice";
@@ -8,6 +8,8 @@ import avatarPlaceholder from "assets/images/avatar_placeholder.png";
 
 const AppBar = () => {
   const user = useSelector(selectUser);
+  const history = useHistory();
+
   return (
     <div className="bg-appDark-700 text-white">
       <div className="max-w-7xl h-15 px-4 mx-auto flex items-center">
@@ -31,7 +33,10 @@ const AppBar = () => {
           </Link>
         </div>
 
-        <button className="ml-4 flex items-center cursor-pointer p-2 hover:bg-appDark-600 rounded-md">
+        <button
+          className="ml-4 flex items-center cursor-pointer p-2 hover:bg-appDark-600 rounded-md"
+          onClick={() => history.push("/profile")}
+        >
           <img
             src={avatarPlaceholder}
             alt="avatar placeholder"

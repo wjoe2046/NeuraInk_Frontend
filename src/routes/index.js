@@ -7,6 +7,7 @@ import { selectIsLoggedin } from "components/auth/slice";
 const Home = lazy(() => import("pages/home"));
 const Landing = lazy(() => import("pages/landing"));
 const Generate = lazy(() => import("pages/generate"));
+const Profile = lazy(() => import("pages/profile"));
 
 const Routes = () => {
   const isLoggedIn = useSelector(selectIsLoggedin);
@@ -19,6 +20,7 @@ const Routes = () => {
           component={() => (!isLoggedIn ? <Landing /> : <Home />)}
         />
         <Route exact path="/generate" component={Generate} />
+        <Route exact path="/profile" component={Profile} />
       </Switch>
     </Suspense>
   );

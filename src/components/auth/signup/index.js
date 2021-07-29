@@ -10,7 +10,6 @@ const Signup = ({ values, errors, touched, onChange, onBlur }) => {
         onChange={onChange}
         onBlur={onBlur}
         disableUnderline
-        fullWidth
         name="fullname"
         error={touched.fullname && Boolean(errors.fullname)}
         errorMessage={errors.fullname}
@@ -24,7 +23,6 @@ const Signup = ({ values, errors, touched, onChange, onBlur }) => {
         onChange={onChange}
         onBlur={onBlur}
         disableUnderline
-        fullWidth
         name="email"
         error={touched.email && Boolean(errors.email)}
         errorMessage={errors.email}
@@ -38,7 +36,6 @@ const Signup = ({ values, errors, touched, onChange, onBlur }) => {
         onChange={onChange}
         onBlur={onBlur}
         disableUnderline
-        fullWidth
         name="password"
         error={touched.password && Boolean(errors.password)}
         errorMessage={errors.password}
@@ -53,7 +50,6 @@ const Signup = ({ values, errors, touched, onChange, onBlur }) => {
         onChange={onChange}
         onBlur={onBlur}
         disableUnderline
-        fullWidth
         name="confirmPassword"
         error={touched.confirmPassword && Boolean(errors.confirmPassword)}
         errorMessage={errors.confirmPassword}

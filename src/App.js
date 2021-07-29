@@ -5,6 +5,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Routes from "routes";
 import { loginUser } from "components/auth/slice";
+import FallbackSpinner from "components/fallbackSpinner";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -43,7 +44,7 @@ const App = () => {
     }
   });
 
-  if (loading) return null;
+  if (loading) return <FallbackSpinner />;
 
   return (
     <>

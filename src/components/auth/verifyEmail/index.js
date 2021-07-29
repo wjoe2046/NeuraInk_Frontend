@@ -39,7 +39,6 @@ const VerifyEmail = ({ values, errors, touched, onChange, onBlur }) => {
         onChange={onChange}
         onBlur={onBlur}
         disableUnderline
-        fullWidth
         name="code"
         error={touched.code && Boolean(errors.code)}
         errorMessage={errors.code}

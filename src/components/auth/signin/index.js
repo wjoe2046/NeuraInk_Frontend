@@ -14,11 +14,11 @@ const Signin = ({ values, errors, touched, onChange, onBlur, resetForm }) => {
         onChange={onChange}
         onBlur={onBlur}
         disableUnderline
-        fullWidth
         name="email"
         error={touched.email && Boolean(errors.email)}
         errorMessage={errors.email}
         placeholder="Enter your email"
+        id="email"
       />
 
       <Input
@@ -27,12 +27,12 @@ const Signin = ({ values, errors, touched, onChange, onBlur, resetForm }) => {
         onChange={onChange}
         onBlur={onBlur}
         disableUnderline
-        fullWidth
         name="password"
         error={touched.password && Boolean(errors.password)}
         errorMessage={errors.password}
         placeholder="Enter your password"
         type="password"
+        id="password"
       />
       <div>
         <button
@@ -41,7 +41,7 @@ const Signin = ({ values, errors, touched, onChange, onBlur, resetForm }) => {
             resetForm();
             dispatch(setActiveComponent(UI_COMPONENTS.FORGOT_PASSWORD));
           }}
-          className="bg-transparent outline-none border-none text-appYellow-700 cursor-pointer text-sm"
+          className="bg-transparent outline-none border-none text-appYellow-900 cursor-pointer text-sm"
         >
           Forgot your password?
         </button>

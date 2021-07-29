@@ -48,13 +48,12 @@ const ResetPassword = ({
         </button>
       </div>
 
-      <input
+      <Input
         label="Verification code:"
         value={values.code}
         onChange={onChange}
         onBlur={onBlur}
         disableUnderline
-        fullWidth
         name="code"
         error={touched.code && Boolean(errors.code)}
         errorMessage={errors.code}
@@ -68,7 +67,6 @@ const ResetPassword = ({
         onChange={onChange}
         onBlur={onBlur}
         disableUnderline
-        fullWidth
         name="password"
         error={touched.password && Boolean(errors.password)}
         errorMessage={errors.password}
@@ -82,7 +80,6 @@ const ResetPassword = ({
         onChange={onChange}
         onBlur={onBlur}
         disableUnderline
-        fullWidth
         name="confirmPassword"
         error={touched.confirmPassword && Boolean(errors.confirmPassword)}
         placeholder="Re-enter your password"

@@ -4,6 +4,7 @@ import { useFormik } from "formik";
 import Modal from "react-modal";
 import { XIcon } from "@heroicons/react/outline";
 import { toast } from "react-toastify";
+import Loader from "react-loader-spinner";
 import {
   signinWithEmailAndPassword,
   confirmEmail,
@@ -185,10 +186,10 @@ const Auth = () => {
     <Modal
       isOpen={authSlice.isOpen}
       onRequestClose={onClose}
-      className="bg-white w-80 absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 px-6 py-8 shadow-md overflow-y-auto max-h-full"
+      className="bg-white w-96 absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 px-6 py-8 shadow-md overflow-y-auto max-h-full"
       style={{
         overlay: {
-          zIndex: 9999,
+          zIndex: 99,
         },
       }}
     >
@@ -225,9 +226,13 @@ const Auth = () => {
         <button
           type="submit"
           disabled={loading}
-          className="block w-full py-2 bg-appYellow-700 text-appDark-700 border-none uppercase text-base font-bold mt-4"
+          className="w-full py-2 bg-appYellow-700 text-appDark-700 border-none uppercase text-base font-bold mt-4 flex items-center justify-center disabled:opacity-40"
         >
-          {buttonText}
+          {loading ? (
+            <Loader width={30} height={30} type="ThreeDots" color="#fff" />
+          ) : (
+            <>{buttonText}</>
+          )}
         </button>
         {/* Actions here */}
         <div className="mt-4">
@@ -240,7 +245,7 @@ const Auth = () => {
                   resetForm();
                   dispatch(setActiveComponent(UI_COMPONENTS.SIGNIN));
                 }}
-                className="bg-transparent	text-appYellow-700 border-none outline-none cursor-pointer"
+                className="bg-transparent	text-appYellow-900 border-none outline-none cursor-pointer"
               >
                 Signin
               </button>
@@ -256,7 +261,7 @@ const Auth = () => {
                   resetForm();
                   dispatch(setActiveComponent(UI_COMPONENTS.SIGNUP));
                 }}
-                className="bg-transparent	text-appYellow-700 border-none outline-none cursor-pointer"
+                className="bg-transparent	text-appYellow-900 border-none outline-none cursor-pointer"
               >
                 Signup
               </button>
