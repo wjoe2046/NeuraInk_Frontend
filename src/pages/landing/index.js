@@ -1,7 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import teamMember1Url from "assets/images/team_member_1.jpg";
 import ReactPlayer from "react-player/youtube";
+import { AuthModal } from "components/auth";
+import { setActiveComponent, openModal } from "components/auth/slice";
+import { UI_COMPONENTS } from "components/auth/constants";
 import galleryImage1Url from "assets/images/gallery_image_1.jpg";
 import galleryImage2Url from "assets/images/gallery_image_2.jpg";
 import galleryImage3Url from "assets/images/gallery_image_3.jpg";
@@ -9,8 +13,22 @@ import galleryImage4Url from "assets/images/gallery_image_4.jpg";
 import styles from "./style.module.css";
 
 const Landing = () => {
+  const dispatch = useDispatch();
+
+  const openSigninModal = () => {
+    dispatch(setActiveComponent(UI_COMPONENTS.SIGNIN));
+    dispatch(openModal());
+  };
+
+  const openSignupModal = () => {
+    dispatch(setActiveComponent(UI_COMPONENTS.SIGNUP));
+    dispatch(openModal());
+  };
+
   return (
     <>
+      {/* Auth Modal */}
+      <AuthModal />
       {/* ***** Header Section ***** */}
       <section className="relative bg-gray-200">
         {/* App bar */}
@@ -58,20 +76,22 @@ const Landing = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link
+                  <button
                     to="/"
-                    className="block px-4 text-0.9 uppercase text-appYellow-700 font-bold"
+                    className="bg-transparent outline-none border-none block px-4 text-0.9 uppercase text-appYellow-700 font-bold"
+                    onClick={openSigninModal}
                   >
                     log in
-                  </Link>
+                  </button>
                 </li>
                 <li>
-                  <Link
+                  <button
                     to="/"
-                    className="block px-4 text-0.9 uppercase text-appYellow-700 font-bold"
+                    className="bg-transparent outline-none border-none block px-4 text-0.9 uppercase text-appYellow-700 font-bold"
+                    onClick={openSignupModal}
                   >
                     Signup
-                  </Link>
+                  </button>
                 </li>
               </ul>
             </div>
