@@ -3,6 +3,7 @@ import { Switch, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
 import FallbackSpinner from "components/fallbackSpinner";
 import { selectIsLoggedin } from "components/auth/slice";
+import PrivateRoute from "./privateRoute";
 
 const Home = lazy(() => import("pages/home"));
 const Landing = lazy(() => import("pages/landing"));
@@ -19,8 +20,8 @@ const Routes = () => {
           path="/"
           component={() => (!isLoggedIn ? <Landing /> : <Home />)}
         />
-        <Route exact path="/generate" component={Generate} />
-        <Route exact path="/profile" component={Profile} />
+        <PrivateRoute exact path="/generate" component={Generate} />
+        <PrivateRoute exact path="/profile" component={Profile} />
       </Switch>
     </Suspense>
   );
