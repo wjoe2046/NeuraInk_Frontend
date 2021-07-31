@@ -53,7 +53,6 @@ const ResetPassword = ({
         value={values.code}
         onChange={onChange}
         onBlur={onBlur}
-        disableUnderline
         name="code"
         error={touched.code && Boolean(errors.code)}
         errorMessage={errors.code}
@@ -66,7 +65,6 @@ const ResetPassword = ({
         value={values.password}
         onChange={onChange}
         onBlur={onBlur}
-        disableUnderline
         name="password"
         error={touched.password && Boolean(errors.password)}
         errorMessage={errors.password}
@@ -79,7 +77,6 @@ const ResetPassword = ({
         value={values.confirmPassword}
         onChange={onChange}
         onBlur={onBlur}
-        disableUnderline
         name="confirmPassword"
         error={touched.confirmPassword && Boolean(errors.confirmPassword)}
         placeholder="Re-enter your password"

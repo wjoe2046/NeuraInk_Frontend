@@ -38,7 +38,6 @@ const VerifyEmail = ({ values, errors, touched, onChange, onBlur }) => {
         value={values.code}
         onChange={onChange}
         onBlur={onBlur}
-        disableUnderline
         name="code"
         error={touched.code && Boolean(errors.code)}
         errorMessage={errors.code}

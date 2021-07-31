@@ -9,7 +9,6 @@ const ForgotPassword = ({ values, errors, touched, onChange, onBlur }) => {
         value={values.email}
         onChange={onChange}
         onBlur={onBlur}
-        disableUnderline
         name="email"
         error={touched.email && Boolean(errors.email)}
         errorMessage={errors.email}
