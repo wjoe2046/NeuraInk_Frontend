@@ -8,7 +8,7 @@ import PrivateRoute from './privateRoute';
 const Home = lazy(() => import('pages/home'));
 const Landing = lazy(() => import('pages/landing'));
 const Generate = lazy(() => import('pages/generate'));
-const Profile = lazy(() => import('pages/Profile'));
+const Profile = lazy(() => import('pages/profile'));
 
 const Routes = () => {
   const isLoggedIn = useSelector(selectIsLoggedin);
