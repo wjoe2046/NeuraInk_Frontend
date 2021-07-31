@@ -1,0 +1,15 @@
+.headerLogo {
+  display: block;
+}
+
+.headerLogo::after {
+  content: "";
+  display: block;
+  width: 30px;
+  height: 4px;
+  background-color: #ffc107;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  margin-top: 4px;
+}
