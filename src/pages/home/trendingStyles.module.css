@@ -1,0 +1,7 @@
+.centeredBox {
+  width: 100%;
+  height: calc(100vh - 174px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

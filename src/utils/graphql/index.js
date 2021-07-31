@@ -1,5 +1,7 @@
-import { Auth } from "aws-amplify";
+import { Auth, API, graphqlOperation } from "aws-amplify";
 import { toast } from "react-toastify";
+import { createNote } from "graphql/mutations";
+import { listNotes } from "graphql/queries";
 
 export const signinWithEmailAndPassword = async (email, password) => {
   try {
@@ -144,4 +146,52 @@ export const resendForgotPassword = async (email) => {
 export const logoutUser = async () => {
   await Auth.signOut();
   window.location.reload();
+};
+
+export const addNote = async (inputImageUrl, outputImageUrl) => {
+  try {
+    const response = await API.graphql(
+      graphqlOperation(createNote, {
+        input: {
+          name: inputImageUrl,
+          image: outputImageUrl,
+        },
+      })
+    );
+
+    if (response && response.data && response.data.createNote) {
+      return { status: "success", data: response.data.createNote };
+    } else {
+      return {
+        status: "error",
+        message: "Something went wrong",
+      };
+    }
+  } catch (err) {
+    console.log("error: ", err);
+    return {
+      status: "error",
+      message: err.message,
+    };
+  }
+};
+
+export const getNotes = async () => {
+  try {
+    const response = await API.graphql(graphqlOperation(listNotes));
+
+    if (response && response.data && response.data.listNotes) {
+      return { status: "success", data: response.data.listNotes.items };
+    }
+
+    return {
+      status: "fail",
+      message: "Something went wrong",
+    };
+  } catch (err) {
+    return {
+      status: "fail",
+      message: err.message,
+    };
+  }
 };
