@@ -13,7 +13,6 @@ const Signin = ({ values, errors, touched, onChange, onBlur, resetForm }) => {
         value={values.email}
         onChange={onChange}
         onBlur={onBlur}
-        disableUnderline
         name="email"
         error={touched.email && Boolean(errors.email)}
         errorMessage={errors.email}
@@ -26,7 +25,6 @@ const Signin = ({ values, errors, touched, onChange, onBlur, resetForm }) => {
         value={values.password}
         onChange={onChange}
         onBlur={onBlur}
-        disableUnderline
         name="password"
         error={touched.password && Boolean(errors.password)}
         errorMessage={errors.password}
