@@ -7,10 +7,12 @@ import { v4 as uuid } from "uuid";
 import { toast } from "react-toastify";
 import Loader from "react-loader-spinner";
 import { addNote } from "utils/graphql";
+import { generateImage } from "utils/apis";
 import styles from "./style.module.css";
 
 const INPUT_FOLDER = "input";
 const OUTPUT_FOLDER = "output";
+const REST_INPUT_FOLDER = "rest";
 const BUCKET_URL =
   "https://selene-amplify14031-staging.s3.amazonaws.com/public";
 
@@ -46,7 +48,7 @@ const Genarate = () => {
     }
   };
 
-  const handleSubmit = async () => {
+  const handleSageMaker = async () => {
     try {
       if (!file) {
         setHasError(true);
@@ -75,6 +77,55 @@ const Genarate = () => {
           } else {
             setIsUploading(false);
             toast.error(addNoteResponse.message);
+          }
+        } else {
+          setIsUploading(false);
+          toast.error("Something went wrong, please try latter.");
+        }
+      }
+    } catch (err) {
+      setIsUploading(false);
+      toast.error(err.message);
+    }
+  };
+
+  const handleRest = async () => {
+    try {
+      if (!file) {
+        setHasError(true);
+      } else {
+        setIsUploading(true);
+        const extention = file.name.split(".").pop();
+        const id = uuid();
+        const filename = `${id}.${extention}`;
+        const path = `${REST_INPUT_FOLDER}/${filename}`;
+
+        const response = await Storage.put(path, file);
+        console.log("response:", response);
+        if (response) {
+          const generateImageResponse = await generateImage(
+            "public/rest/",
+            filename
+          );
+
+          if (generateImageResponse.status === "success") {
+            const inputUrl = `${BUCKET_URL}/${REST_INPUT_FOLDER}/${filename}`;
+            const outputUrl = generateImageResponse.data;
+            const addNoteResponse = await addNote(inputUrl, outputUrl);
+            if (addNoteResponse.status === "success") {
+              setTimeout(() => {
+                toast.success("Image is generated successfully");
+                setInputImageUrl(file.preview);
+                setOutputImageUrl(outputUrl);
+                setIsUploading(false);
+              }, 5000);
+            } else {
+              setIsUploading(false);
+              toast.error(addNoteResponse.message);
+            }
+          } else {
+            setIsUploading(false);
+            toast.error("Something went wrong, please try latter.");
           }
         } else {
           setIsUploading(false);
@@ -154,14 +205,14 @@ const Genarate = () => {
 
             <button
               className="py-2 px-8 bg-appYellow-900 text-white text-base uppercase font-bold w-full mt-4"
-              onClick={handleSubmit}
+              onClick={handleSageMaker}
             >
               Sagemaker
             </button>
 
             <button
               className="py-2 px-8 bg-appYellow-900 text-white text-base uppercase font-bold w-full mt-4"
-              onClick={handleSubmit}
+              onClick={handleRest}
             >
               REST
             </button>
