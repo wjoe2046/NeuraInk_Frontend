@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getNotes } from "utils/graphql";
 import Loader from "react-loader-spinner";
+import orderBy from "lodash.orderby";
 import styles from "./trendingStyles.module.css";
 
 const Trending = () => {
@@ -13,7 +14,9 @@ const Trending = () => {
       const response = await getNotes();
 
       if (response.status === "success") {
-        setNotes(response.data);
+        setNotes(
+          orderBy(response.data, [(o) => new Date(o.createdAt)], ["desc"])
+        );
         setStatus("loaded");
       } else {
         setStatus("error");

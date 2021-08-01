@@ -19,6 +19,8 @@
     "clsx": "^1.1.1",
     "emotion": "^11.0.0",
     "formik": "^2.2.9",
+    "lodash.orderby": "^4.6.0",
+    "lodash.sortby": "^4.7.0",
     "mdb-react-ui-kit": "^1.0.0-beta6",
     "node-sass": "^6.0.0",
     "randomstring": "^1.2.1",
