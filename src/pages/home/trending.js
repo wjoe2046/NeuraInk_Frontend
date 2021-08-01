@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { selectUser } from 'components/auth/slice';
 import { getNotes } from 'utils/graphql';
 import Loader from 'react-loader-spinner';
 import orderBy from 'lodash.orderby';
@@ -8,6 +10,10 @@ import { deleteNote } from 'graphql/mutations';
 const Trending = () => {
   const [notes, setNotes] = useState(null);
   const [status, setStatus] = useState('idle');
+  const userImage =
+    'https://neuraink-stockimage-resource.s3.amazonaws.com/stock_image/02.jpg';
+
+  const user = useSelector(selectUser);
 
   useEffect(() => {
     const fethcNotes = async () => {
@@ -73,15 +79,18 @@ const Trending = () => {
             <div className='p-6 bg-appDark-50 border-b border-gray-300'>
               <div className='h-full flex items-center'>
                 <img
-                  src='https://i.pravatar.cc/60'
+                  src={userImage}
                   alt='user profile'
                   className='ring-4 ring-gray-300'
-                  style={{ borderRadius: '50%' }}
+                  style={{
+                    width: '4em',
+                    borderRadius: '50%',
+                  }}
                 />
 
                 <div className='ml-6'>
                   <p className='text-3xl font-bold text-appYellow-900'>
-                    Jon Doe
+                    {user.name}
                   </p>
                   <p className='text-base mt-1 text-appDark-500'>
                     21 hours ago
