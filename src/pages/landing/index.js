@@ -19,10 +19,10 @@ import sampleImage4real from '../../assets/images/sample_image3_real';
 
 import styles from './style.module.css';
 // import headerVideo from '../../assets/videos/ink_wash.mp4';
-import wenfei_pic from '../../assets/teamPhoto/wenfei_image.jpeg';
-import ethan_pic from '../../assets/teamPhoto/ethan_image.jpeg';
-import lisa_pic from '../../assets/teamPhoto/lisa_image.png';
-import selene_pic from '../../assets/teamPhoto/selene_image.jpeg';
+// import wenfei_pic from '../../assets/teamPhoto/wenfei_image.jpeg';
+// import ethan_pic from '../../assets/teamPhoto/ethan_image.jpeg';
+// import lisa_pic from '../../assets/teamPhoto/lisa_image.png';
+// import selene_pic from '../../assets/teamPhoto/selene_image.jpeg';
 import { FaGithub } from 'react-icons/fa';
 
 const Landing = () => {
@@ -39,6 +39,18 @@ const Landing = () => {
     dispatch(setActiveComponent(UI_COMPONENTS.SIGNUP));
     dispatch(openModal());
   };
+
+  const wenfei_pic =
+    'https://neuraink-stockimage-resource.s3.amazonaws.com/team_photo/wenfei_image.jpeg';
+
+  const ethan_pic =
+    'https://neuraink-stockimage-resource.s3.amazonaws.com/team_photo/ethan_image.jpeg';
+
+  const lisa_pic =
+    'https://neuraink-stockimage-resource.s3.amazonaws.com/team_photo/lisa_image.png';
+
+  const selene_pic =
+    'https://neuraink-stockimage-resource.s3.amazonaws.com/team_photo/selene_image.jpeg';
 
   return (
     <>
