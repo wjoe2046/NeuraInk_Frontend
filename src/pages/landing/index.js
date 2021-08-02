@@ -40,6 +40,8 @@ const Landing = () => {
     dispatch(openModal());
   };
 
+  const wenfei = 0;
+
   const wenfei_pic =
     'https://neuraink-stockimage-resource.s3.amazonaws.com/team_photo/wenfei_image.jpeg';
 
